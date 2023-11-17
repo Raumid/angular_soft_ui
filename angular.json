@@ -25,9 +25,20 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/assets/css/nucleo-icons.css",
+              "src/assets/assets/css/nucleo-svg.css",
+              "src/assets/assets/css/nucleo-svg.css",
+              "src/assets/assets/css/soft-ui-dashboard.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/assets/js/core/popper.min.js",
+              "src/assets/assets/js/core/bootstrap.min.js",
+              "src/assets/assets/js/plugins/perfect-scrollbar.min.js",
+              "src/assets/assets/js/plugins/smooth-scrollbar.min.js",
+              "src/assets/assets/js/plugins/chartjs.min.js",
+              "src/assets/assets/js/soft-ui-dashboard.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -94,5 +105,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "c371588a-248c-45fb-8432-37e076c03e3c"
   }
 }
