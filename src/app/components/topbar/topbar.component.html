@@ -25,7 +25,7 @@
             </a>
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav" (click)="configService.handlerSidebar()">
               <div class="sidenav-toggler-inner">
                 <i class="sidenav-toggler-line"></i>
                 <i class="sidenav-toggler-line"></i>
@@ -34,7 +34,7 @@
             </a>
           </li>
           <li class="nav-item px-3 d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body p-0" (click)="handlerConfig()">
+            <a href="javascript:;" class="nav-link text-body p-0" (click)="configService.handlerConfig()">
               <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
             </a>
           </li>

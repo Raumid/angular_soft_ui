@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ConfigService } from './services/config.service';
+import { Router, NavigationStart } from '@angular/router';
 
 declare const PerfectScrollbar: any;
 // declare const Chart: any;
@@ -10,44 +12,69 @@ declare const PerfectScrollbar: any;
 })
 export class AppComponent implements OnInit {
 
+  showSidebar:boolean = true;
+  routesWithoutSidebar = ['/sign-in', '/sign-up'];
+
   constructor(
-    private render: Renderer2
+    public configService: ConfigService,
+    private router: Router
   ) {
 
   }
-
-  @ViewChild('config') config!: ElementRef<HTMLElement>; 
   
   ngOnInit(){
+    this.initObservers();
     this.scroll();
     // this.charts();
   }
 
-  private scroll():void {
-    var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+  initObservers():void {
+    this.router.events.subscribe((event:any) => {
+      if(event instanceof NavigationStart) {
+        if(event.navigationTrigger == 'popstate') {
+          setTimeout(() => {
+            this.scroll();
+          }, 0)
+        }
 
-    if (isWindows) {
-      // if we are on windows OS we activate the perfectScrollbar function
-      if (document.getElementsByClassName('main-content')[0]) {
-        var mainpanel = document.querySelector('.main-content');
-        var ps = new PerfectScrollbar(mainpanel);
+        if(this.routesWithoutSidebar.includes(event.url)){
+          this.showSidebar = false;
+        }else {
+          this.showSidebar = true;
+        }
+      }
+    });
+  }
+
+  private scroll():void {
+    try {
+      var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+
+      if (isWindows) {
+        // if we are on windows OS we activate the perfectScrollbar function
+        if (document.getElementsByClassName('main-content')[0]) {
+          var mainpanel = document.querySelector('.main-content');
+          var ps = new PerfectScrollbar(mainpanel);
+        };
+    
+        if (document.getElementsByClassName('sidenav')[0]) {
+          var sidebar = document.querySelector('.sidenav');
+          var ps1 = new PerfectScrollbar(sidebar);
+        };
+    
+        if (document.getElementsByClassName('navbar-collapse')[0]) {
+          var fixedplugin = document.querySelector('.navbar:not(.navbar-expand-lg) .navbar-collapse');
+          var ps2 = new PerfectScrollbar(fixedplugin);
+        };
+    
+        if (document.getElementsByClassName('fixed-plugin')[0]) {
+          var fixedplugin = document.querySelector('.fixed-plugin');
+          var ps3 = new PerfectScrollbar(fixedplugin);
+        };
       };
-  
-      if (document.getElementsByClassName('sidenav')[0]) {
-        var sidebar = document.querySelector('.sidenav');
-        var ps1 = new PerfectScrollbar(sidebar);
-      };
-  
-      if (document.getElementsByClassName('navbar-collapse')[0]) {
-        var fixedplugin = document.querySelector('.navbar:not(.navbar-expand-lg) .navbar-collapse');
-        var ps2 = new PerfectScrollbar(fixedplugin);
-      };
-  
-      if (document.getElementsByClassName('fixed-plugin')[0]) {
-        var fixedplugin = document.querySelector('.fixed-plugin');
-        var ps3 = new PerfectScrollbar(fixedplugin);
-      };
-    };
+    } catch (error) {
+      
+    }
   }
 
   // private charts():void {
@@ -222,13 +249,4 @@ export class AppComponent implements OnInit {
   //     },
   //   });
   // }
-
-  public handlerConfig():void {
-    let isActive = this.config.nativeElement.classList.contains('show');
-    if(isActive){
-      this.render.removeClass(this.config.nativeElement, 'show');
-    }else {
-      this.render.addClass(this.config.nativeElement, 'show');
-    }
-  }
 }

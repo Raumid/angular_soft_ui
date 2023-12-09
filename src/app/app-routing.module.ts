@@ -21,6 +21,27 @@ const routes: Routes = [
   {
     path: 'rtl',
     loadChildren: () => import('./moduls/rtl/rtl.module').then(m => m.RtlModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./moduls/profile/profile.module').then(m => m.ProfileModule)
+  },
+  {
+    path: 'sign-in',
+    loadChildren: () => import('./moduls/sign-in/sign-in.module').then(m => m.SignInModule)
+  },
+  {
+    path: 'sign-up',
+    loadChildren: () => import('./moduls/sign-up/sign-up.module').then(m => m.SignUpModule)
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'home'
   }
 ];
 

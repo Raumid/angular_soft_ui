@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-config',
@@ -8,18 +9,7 @@ import { Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 export class ConfigComponent {
 
   constructor(
-    private render: Renderer2
+    public configService: ConfigService
   ){}
-
-  @ViewChild('config') config!: ElementRef<HTMLElement>; 
-
-  public handlerConfig():void {
-    let isActive = this.config.nativeElement.classList.contains('show');
-    if(isActive){
-      this.render.removeClass(this.config.nativeElement, 'show');
-    }else {
-      this.render.addClass(this.config.nativeElement, 'show');
-    }
-  }
 
 }
